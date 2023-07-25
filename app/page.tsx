@@ -154,6 +154,7 @@ export default function Index() {
                 <Center>
                   <Image src={coffeeMug} alt="Coffee mug" />
                 </Center>
+                <Space h={20} />
                 <Center>
                   <Title color="red" ta={'center'} order={1}>
                     The Trump 2024 Coffee Mug
@@ -243,6 +244,7 @@ export default function Index() {
                   }}
                 />
               </Center>
+              <Space h={20} />
               <Center>
                 <Button type="submit" color="red">
                   Checkout
