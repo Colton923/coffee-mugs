@@ -38,7 +38,7 @@ export async function POST(request: Request) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Basic ' + process.env.PRINTFUL_TOKEN,
+        Authorization: 'Bearer ' + process.env.PRINTFUL_TOKEN,
       },
 
       body: JSON.stringify({
