@@ -21,6 +21,7 @@ export async function POST(request: Request) {
           quantity: quantity,
         },
       ],
+      metadata: formData,
       mode: 'payment',
       success_url: `https://www.trump2024coffee.com?success=true`,
       cancel_url: `https://www.trump2024coffee.com?canceled=true`,

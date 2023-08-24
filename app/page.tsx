@@ -31,11 +31,9 @@ export interface Checkout {
 import { states } from '../static/states'
 import type { AddressValidRequest } from './api/addressValid/route'
 import { IconCreditCard } from '@tabler/icons-react'
-//One projuct page site
-import { usePathname } from 'next/navigation'
-import { useEffect } from 'react'
+
 export default function Index() {
-  const { register, handleSubmit, watch, setValue, getValues } = useForm<Checkout>({
+  const { register, handleSubmit, watch, setValue } = useForm<Checkout>({
     defaultValues: {
       name: '',
       addressLineOne: '',
@@ -48,33 +46,6 @@ export default function Index() {
     },
     delayError: 3000,
   })
-  const path = usePathname()
-
-  const finalizeOrder = async (formData: any) => {
-    try {
-      const response = await fetch('/api/printfulOrder', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      })
-
-      const data = await response.json()
-      if (!data.success) {
-        throw new Error(data.error || 'Could not finalize order')
-      }
-    } catch (error) {
-      alert('There was an error processing your payment. Please try again.')
-    }
-  }
-
-  useEffect(() => {
-    if (path.includes('success')) {
-      const formData = getValues()
-      finalizeOrder(formData)
-    }
-  }, [path])
 
   const onSubmit = async (data: Checkout) => {
     try {
