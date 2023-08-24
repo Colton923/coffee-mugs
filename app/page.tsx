@@ -109,7 +109,7 @@ export default function Index() {
 
       const stripeData = await stripeRes.json()
 
-      if (!stripeData.url) {
+      if (!stripeData.sessionUrl) {
         alert('There was an error processing your payment. Please try again.')
         return
       }
