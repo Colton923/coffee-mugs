@@ -31,8 +31,9 @@ export interface Checkout {
 import { states } from '../static/states'
 import type { AddressValidRequest } from './api/addressValid/route'
 import { IconCreditCard } from '@tabler/icons-react'
-
+import { useState, useEffect } from 'react'
 export default function Index() {
+  const [total, setTotal] = useState(0)
   const { register, handleSubmit, watch, setValue } = useForm<Checkout>({
     defaultValues: {
       name: '',
@@ -180,6 +181,12 @@ export default function Index() {
     }
   }
 
+  useEffect(() => {
+    const total = 19.99 * watch('quantity')
+    const roundedTotal = Math.round(total * 100) / 100
+    setTotal(roundedTotal)
+  }, [watch('quantity')])
+
   return (
     <Container size={'xl'} style={{ paddingTop: 50 }}>
       <Flex direction="column" justify="center" wrap={'wrap'}>
@@ -211,7 +218,7 @@ export default function Index() {
                   }}
                 >
                   <Badge color="green" variant="light" size="lg">
-                    ${19.99 * watch('quantity')}
+                    ${total.toFixed(2)}
                   </Badge>
                 </div>
                 <div
@@ -321,7 +328,7 @@ export default function Index() {
             <Space h={20} />
             <Center>
               <Button type="submit" color="red">
-                {`Checkout - $${19.99 * watch('quantity')}`}
+                {`Checkout - $${total.toFixed(2)}`}
               </Button>
             </Center>
           </Grid.Col>

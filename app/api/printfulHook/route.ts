@@ -54,16 +54,11 @@ export async function POST(request: Request) {
         },
         items: [
           {
-            external_id: 'Trump2024Coffee',
-            variant_id: 3001,
+            variant_id: '64e73b21edc254',
             quantity: formData.quantity,
-            retail_price: '19.95',
-            name: 'The Mug',
-            files: [
-              {
-                url: 'https://www.trump2024coffee.com/images/trump2024coffee.png',
-              },
-            ],
+            retail_price: '9.95',
+            price: '19.95',
+            name: 'Mug',
           },
         ],
       }),
