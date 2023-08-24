@@ -39,6 +39,7 @@ export async function POST(request: Request) {
       headers: {
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + process.env.PRINTFUL_TOKEN,
+        'X-PF-Store-Id': process.env.PRINTFUL_STORE_ID as string,
       },
 
       body: JSON.stringify({
