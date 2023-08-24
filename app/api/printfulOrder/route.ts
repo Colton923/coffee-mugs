@@ -1,25 +1,48 @@
 import { NextResponse } from 'next/server'
 
 export async function POST(request: Request) {
-  const orderId = await request.json()
+  const formData = await request.json()
 
   try {
     // Call Printful API to confirm the order
-    const printfulResponse = await fetch(
-      `https://api.printful.com/orders/${orderId}/confirm`,
-      {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${process.env.PRINTFUL_TOKEN}`,
-        },
-      }
-    )
+    const response = await fetch('https://api.printful.com/orders?confirm=true', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Basic ' + process.env.PRINTFUL_TOKEN,
+      },
 
-    if (!printfulResponse.ok) {
+      body: JSON.stringify({
+        recipient: {
+          name: formData.name,
+          address1: formData.addressLineOne,
+          address2: formData.addressLineTwo,
+          city: formData.city,
+          zip: formData.zip,
+          country_code: 'US',
+          state_code: formData.state,
+          email: formData.email,
+        },
+        items: [
+          {
+            external_id: 'Trump2024Coffee',
+            variant_id: 3001,
+            quantity: formData.quantity,
+            retail_price: '19.95',
+            name: 'The Mug',
+            files: [
+              {
+                url: 'https://www.trump2024coffee.com/images/trump2024coffee.png',
+              },
+            ],
+          },
+        ],
+      }),
+    })
+
+    if (!response.ok) {
       throw new Error(
-        `Printful API returned ${
-          printfulResponse.status
-        }: ${await printfulResponse.text()}`
+        `Printful API returned ${response.status}: ${await response.text()}`
       )
     }
 

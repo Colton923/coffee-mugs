@@ -35,7 +35,7 @@ import { IconCreditCard } from '@tabler/icons-react'
 import { usePathname } from 'next/navigation'
 import { useEffect } from 'react'
 export default function Index() {
-  const { register, handleSubmit, watch, setValue } = useForm<Checkout>({
+  const { register, handleSubmit, watch, setValue, getValues } = useForm<Checkout>({
     defaultValues: {
       name: '',
       addressLineOne: '',
@@ -50,17 +50,17 @@ export default function Index() {
   })
   const path = usePathname()
 
-  const finalizeOrder = async (sessionId: string) => {
+  const finalizeOrder = async (formData: any) => {
     try {
-      const res = await fetch('/api/printfulOrder', {
+      const response = await fetch('/api/printfulOrder', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ sessionId }),
+        body: JSON.stringify(formData),
       })
 
-      const data = await res.json()
+      const data = await response.json()
       if (!data.success) {
         throw new Error(data.error || 'Could not finalize order')
       }
@@ -71,10 +71,8 @@ export default function Index() {
 
   useEffect(() => {
     if (path.includes('success')) {
-      const sessionId = window.localStorage.getItem('sessionId')
-      if (sessionId) {
-        finalizeOrder(sessionId)
-      }
+      const formData = getValues()
+      finalizeOrder(formData)
     }
   }, [path])
 
@@ -118,8 +116,6 @@ export default function Index() {
 
       // Step 3: Redirect to Stripe Checkout
       window.location.href = stripeData.sessionUrl
-      window.localStorage.removeItem('sessionId')
-      window.localStorage.setItem('sessionId', stripeData.printfulOrder.external_id)
     } catch (err) {
       alert('There was an error processing your payment. Please try again.')
     }
