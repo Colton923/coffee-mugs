@@ -34,7 +34,7 @@ export async function POST(request: Request) {
       )
     }
 
-    const response = await fetch('https://api.printful.com/orders?confirm=true', {
+    const response = await fetch('https://api.printful.com/orders?confirm=1', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -45,21 +45,19 @@ export async function POST(request: Request) {
       body: JSON.stringify({
         recipient: {
           name: formData.name,
+          email: formData.email,
           address1: formData.addressLineOne,
           address2: formData.addressLineTwo,
           city: formData.city,
-          zip: formData.zip,
-          country_code: 'US',
           state_code: formData.state,
-          email: formData.email,
+          country_code: 'US',
+          zip: formData.zip,
         },
         items: [
           {
-            variant_id: '64e73b21edc254',
+            sync_variant_id: '64ea4d664d0374',
             quantity: formData.quantity,
-            retail_price: '9.95',
-            price: '19.95',
-            name: 'Mug',
+            name: 'Enamel Mug Trump',
           },
         ],
       }),

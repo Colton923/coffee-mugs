@@ -15,7 +15,7 @@ import {
   Badge,
   Image,
 } from '@mantine/core'
-import coffeeMug from 'public/theMug.png'
+import coffeeMug from 'public/trump1.png'
 import { useForm } from 'react-hook-form'
 
 export interface Checkout {
@@ -70,7 +70,7 @@ export default function Index() {
         alert('Invalid address. Please check your information.')
         return
       }
-      // Step 2: Create Stripe Order
+
       const stripeRes = await fetch('/api/stripe', {
         method: 'POST',
         headers: {
@@ -182,7 +182,7 @@ export default function Index() {
   }
 
   useEffect(() => {
-    const total = 19.99 * watch('quantity')
+    const total = 20.95 * watch('quantity')
     const roundedTotal = Math.round(total * 100) / 100
     setTotal(roundedTotal)
   }, [watch('quantity')])
@@ -246,7 +246,7 @@ export default function Index() {
               </Center>
             </Flex>
           </Grid.Col>
-          <Grid.Col span={12} md={6}>
+          <Grid.Col span={12} md={6} mb={'50px'}>
             <Center>
               <Flex direction="column" justify="center" wrap={'wrap'}>
                 <TextInput
@@ -320,6 +320,7 @@ export default function Index() {
                 min={1}
                 max={10}
                 defaultValue={1}
+                hideControls
                 onChange={(value: number) => {
                   setValue('quantity', value)
                 }}

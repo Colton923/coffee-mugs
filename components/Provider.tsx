@@ -33,28 +33,34 @@ const Provider = ({ children }: Props) => {
           w={'100%'}
           h={'100%'}
         >
-          <Link href="/">
+          <Link href="/" style={{ color: 'white', textDecoration: 'none' }}>
             <Flex direction="column" align="center">
               <IconShoppingBag size={30} />
-              One-Item-Shop
+              Shop
             </Flex>
           </Link>
-          <a href="https://www.linkedin.com/in/colton-mcclintock-95279a152/">
+          <a
+            href="https://www.linkedin.com/in/colton-mcclintock-95279a152/"
+            style={{ color: 'white', textDecoration: 'none' }}
+          >
             <Flex direction="column" align="center">
               <Icon3dCubeSphere size={30} />
               Connect
             </Flex>
           </a>
-          <a href="mailto:c.mcclin@webdevsolutionsllc.com">
+          <a
+            href="mailto:c.mcclin@webdevsolutionsllc.com"
+            style={{ color: 'white', textDecoration: 'none' }}
+          >
             <Flex direction="column" align="center">
               <IconMail size={30} />
               Customer Service
             </Flex>
           </a>
-          <Link href="/webdevs">
+          <Link href="/webdevs" style={{ color: 'white', textDecoration: 'none' }}>
             <Flex direction="column" align="center">
               <IconApiApp size={30} />
-              Webdevs
+              Policies
             </Flex>
           </Link>
         </Flex>
